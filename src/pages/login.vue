@@ -68,7 +68,7 @@
             setTimeout(()=>{
               this.$message('登录成功')
               this.logining = true
-              this.$router.push('manage')
+              this.$router.push('shoplist')
             },1000)
           }else{
             this.$message({

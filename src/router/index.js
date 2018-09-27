@@ -6,11 +6,21 @@ Vue.use(Router)
 const login = r => require.ensure([], () => r(require('@/pages/login')), 'login');
 const manage = r => require.ensure([], () => r(require('@/pages/manage')), 'manage');
 const home = r => require.ensure([], () => r(require('@/pages/home')), 'home');
+const shoplist = r => require.ensure([], () => r(require('@/pages/shoplist')), 'shoplist');
+const addShop = r => require.ensure([], () => r(require('@/pages/addShop')), 'addShop');
 
 const routes = [
 	{
 		path: '/',
 		component: login
+	},
+	{
+		path: '/addShop',
+		component: addShop
+	},
+	{
+		path: '/shoplist',
+		component: shoplist
 	},
 	{
 		path: '/manage',
