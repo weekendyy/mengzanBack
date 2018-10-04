@@ -8,6 +8,7 @@ const manage = r => require.ensure([], () => r(require('@/pages/manage')), 'mana
 const home = r => require.ensure([], () => r(require('@/pages/home')), 'home');
 const shoplist = r => require.ensure([], () => r(require('@/pages/shoplist')), 'shoplist');
 const addShop = r => require.ensure([], () => r(require('@/pages/addShop')), 'addShop');
+const zanAuth = r => require.ensure([], () => r(require('@/pages/zanAuth')), 'zanAuth');
 
 const routes = [
 	{
@@ -30,6 +31,10 @@ const routes = [
 			path: '/home',
 			component: home,
 			meta: ['添加数据', '添加商铺'],
+		},{
+			path: '/zanAuth',
+			component: zanAuth,
+			meta: ['eee', 'rfr'],
 		}]
 	}
 ]
