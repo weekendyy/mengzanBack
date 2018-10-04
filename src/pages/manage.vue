@@ -3,8 +3,8 @@
 		<el-row class="contentBox">
 			<el-col :span="3" class="leftNav">
 				<div class="logoBox">
-					<img src="../assets/logo.png" class="logoIcon">
-					<p>亿橙</p>
+					<img src="../assets/images/logo.png" class="logoIcon">
+					<p>萌赞</p>
 				</div>
 				<div class="userInfo">
 					<img src="../assets/images/renxiang.jpg" class="userPic">
@@ -24,11 +24,11 @@
 		      <el-submenu index="1">
 		        <template slot="title" class="asd">
 		          <i class="el-icon-star-on" style="color: #fff"></i>
-		          <span>导航一</span>
+		          <span>有赞授权</span>
 		        </template>
 		        <el-menu-item-group>
-		          <el-menu-item index="home">选项1</el-menu-item>
-		          <el-menu-item index="1-2">选项2</el-menu-item>
+		          <el-menu-item index="zanAuth">有赞授权</el-menu-item>
+		          <el-menu-item index="1-2">有赞优惠券</el-menu-item>
 		        </el-menu-item-group>
 		      </el-submenu>
 		      <el-submenu index="2">
@@ -117,8 +117,8 @@
          -webkit-user-select: none;
          background: #2E4B64;
 				.logoIcon{
-					width: 30px;
-					height: 30px;
+					width: 50px;
+					height: 50px;
 					margin-right: 10px;
 				}
 				p{
