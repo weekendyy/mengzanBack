@@ -62,7 +62,7 @@
     },
     methods:{
       loginTap(e){
-        if(e.keyCode === 13){
+        if(e.keyCode === 13){  //键盘enter登录
           if(this.loginCount == 'zan' && this.loginPsd == '123456'){
             this.logining = false
             setTimeout(()=>{
@@ -79,7 +79,13 @@
         }
       },
       loginBtnTap(){
+        let params = {shopID: '394'}
+        this.func.ajaxPost('v5/magic_home_area/home_area_new', params, res => {
+          console.log(res)
+        })
+        return false
         if(this.loginCount == 'zan' && this.loginPsd == '123456'){
+          console.log(this.api.userLogin)
           this.logining = false
           setTimeout(()=>{
             this.$message('登录成功')
