@@ -3,15 +3,17 @@
       <img src="../assets/images/mengzanbgp.jpg" class="bgp" :class="{'showbgp':showContent}" />
       <!-- 注册页面 -->
       <div :class="{'showloginBox': RegPage}" class="loginBox" >
-        <div class="loginHead">
+        <!-- <div class="loginHead">
           <p>亿</p>
           <p>橙</p>
         </div>
         <p class="loginTxt">账号注册</p>
         <input type="" name="" class="countInp" placeholder="请输入账号" />
         <input type="" name="" class="countInp" placeholder="请输入密码" />
-        <div class="loginBtn" @click="loginTap">注册</div>
-        <p class="toRegeit" @click="toLogin">已经有账号？去登录</p>
+        <div class="loginBtn" @click="loginTap">注册</div> -->
+        <img src="../assets/images/contact.jpg" class="contactPic">
+        <p class="phoneNumber">电话：15659265706</p>
+        <p class="toRegeit toLogin" @click="toLogin">已经有账号？去登录</p>
       </div>
       <!-- 登录页面 -->
       <div :class="{'showloginBox':showContent,'hideLogin': RegPage}" class="loginBox" >
@@ -23,7 +25,7 @@
         <input type="" name="" class="countInp" placeholder="请输入账号" :value="loginCount" @input="loginCount = $event.target.value" autofocus="true" />
         <input type="" name="" class="countInp" type="password" placeholder="请输入密码" :value="loginPsd" @input="loginPsd = $event.target.value" @keydown="loginTap" />
         <div class="loginBtn" :class="{'canLogin':canLogin}" @click="loginBtnTap">登录</div>
-        <p class="toRegeit" @click="toReg">还没有账号？去注册</p>
+        <p class="toRegeit" @click="toReg">我要开账号</p>
       </div>
       <Loading :load="logining"></Loading>
       <Tips :tipsTxt="tipsTxt" :isShow="showTips"></Tips>
@@ -79,16 +81,15 @@
         }
       },
       loginBtnTap(){
-        let params = {shopID: '394'}
-        this.func.ajaxPost('v5/magic_home_area/home_area_new', params, res => {
+        this.func.ajaxPost('v5/magic_home_area/home_area_new', {}, res => {
           console.log(res)
         })
-        return false
         if(this.loginCount == 'zan' && this.loginPsd == '123456'){
           console.log(this.api.userLogin)
           this.logining = false
           setTimeout(()=>{
             this.$message('登录成功')
+            this.$router.push('shoplist')
             this.logining = true
           },1000)
         }else{
@@ -243,6 +244,17 @@
         &:hover{
           color: #3895E8;
         }
+      }
+      .toLogin{
+        margin-top: 10px;
+      }
+      .contactPic{
+        width: 300px;
+      }
+      .phoneNumber{
+        margin-top: 10px;
+        font-size: 17px;
+        color: #090B1A;
       }
     }
     .showloginBox{

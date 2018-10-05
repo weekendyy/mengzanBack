@@ -13,7 +13,7 @@
 		  				<p class="bindWX">绑定微信：weekendyy</p>
 		  			</el-col>
 		  			<el-col :offset="6" :span="3">
-		  				<p class="setting">设置</p>
+		  				<p class="setting" @click="toAddShop">设置</p>
 		  			</el-col>
 		  		</el-row>
 		  		<el-row class="itemBottom">
