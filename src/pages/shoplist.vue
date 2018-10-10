@@ -17,6 +17,9 @@
 		  			</el-col>
 		  		</el-row>
 		  		<el-row class="itemBottom">
+		  			<el-col :offset="10" :span="4"><p class="setBtn" @click="toAuth">萌赞授权</p></el-col>
+		  		</el-row>
+		  		<el-row class="itemBottom">
 		  			<el-col :offset="10" :span="4"><p class="setBtn" @click="toShopDetail">进入店铺</p></el-col>
 		  		</el-row>
 		  	</div>
@@ -44,6 +47,9 @@
 	      toAddShop(){
 	      	this.$router.push('addShop')
 	      	console.log("Asdasda")
+	      },
+	      toAuth(){
+	      	this.$router.push('zanAuth')
 	      }
 	    },
 	    mounted(){

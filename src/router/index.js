@@ -24,6 +24,10 @@ const routes = [
 		component: shoplist
 	},
 	{
+		path: '/zanAuth',
+		component: zanAuth
+	},
+	{
 		path: '/manage',
 		component: manage,
 		name: '',
@@ -31,10 +35,6 @@ const routes = [
 			path: '/home',
 			component: home,
 			meta: ['添加数据', '添加商铺'],
-		},{
-			path: '/zanAuth',
-			component: zanAuth,
-			meta: ['eee', 'rfr'],
 		}]
 	}
 ]

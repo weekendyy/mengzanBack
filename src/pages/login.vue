@@ -1,34 +1,32 @@
 <template>
     <div class="indexBox">
-      <img src="../assets/images/mengzanbgp.jpg" class="bgp" :class="{'showbgp':showContent}" />
-      <!-- 注册页面 -->
-      <div :class="{'showloginBox': RegPage}" class="loginBox" >
-        <!-- <div class="loginHead">
-          <p>亿</p>
-          <p>橙</p>
+      <img src="../assets/images/loginbgp2.png" class="loginBgp">
+      <div class="loginBox">
+        <!-- 线条 -->
+        <div class="lineTop" :class="{'showlineTop': showContent}"></div>
+        <div class="lineRight" :class="{'showlineRight': showContent}"></div>
+        <div class="lineBtm" :class="{'showlineBtm': showContent}"></div>
+        <div class="lineLeft" :class="{'showlineLeft': showContent}"></div>
+        <!-- 登录盒子 -->
+        <div class="loginContent" :class="{'showLoginCon': showContent}">
+          <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="70px" class="demo-ruleForm">
+            <el-form-item label="账号" prop="account">
+              <el-input type="text" v-model="ruleForm2.account"></el-input>
+            </el-form-item>
+            <el-form-item label="密码" prop="password">
+              <el-input v-model.number="ruleForm2.password"></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" size="medium" @click="submitForm('ruleForm2')">登录</el-button>
+            </el-form-item>
+          </el-form>
         </div>
-        <p class="loginTxt">账号注册</p>
-        <input type="" name="" class="countInp" placeholder="请输入账号" />
-        <input type="" name="" class="countInp" placeholder="请输入密码" />
-        <div class="loginBtn" @click="loginTap">注册</div> -->
-        <img src="../assets/images/contact.jpg" class="contactPic">
-        <p class="phoneNumber">电话：15659265706</p>
-        <p class="toRegeit toLogin" @click="toLogin">已经有账号？去登录</p>
+        <!-- 右下角 -->
       </div>
-      <!-- 登录页面 -->
-      <div :class="{'showloginBox':showContent,'hideLogin': RegPage}" class="loginBox" >
-        <div class="loginHead">
-          <p>亿</p>
-          <p>橙</p>
-        </div>
-        <p class="loginTxt">账号登录</p>
-        <input type="" name="" class="countInp" placeholder="请输入账号" :value="loginCount" @input="loginCount = $event.target.value" autofocus="true" />
-        <input type="" name="" class="countInp" type="password" placeholder="请输入密码" :value="loginPsd" @input="loginPsd = $event.target.value" @keydown="loginTap" />
-        <div class="loginBtn" :class="{'canLogin':canLogin}" @click="loginBtnTap">登录</div>
-        <p class="toRegeit" @click="toReg">我要开账号</p>
+      <div class="contact">
+        <p class="zanName">MENGZAN</p>
+        <p class="zanDesc">萌赞出品</p>
       </div>
-      <Loading :load="logining"></Loading>
-      <Tips :tipsTxt="tipsTxt" :isShow="showTips"></Tips>
     </div>
 </template>
 
@@ -41,16 +39,36 @@
       'Tips': Tips
   	},
     data(){
+      var checkPassword = (rule, value, callback) => {
+        if (!value) {
+          return callback(new Error('密码不能为空'));
+        }else{
+          callback()
+        }
+        
+      };
+      var validateAcc = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入账号'))
+        } else {
+          callback()
+        }
+      }
       return {
+        ruleForm2: {
+          account: '',
+          age: ''
+        },
+        rules2: {
+          account: [
+            { validator: validateAcc, trigger: 'blur' }
+          ],
+          password: [
+            { validator: checkPassword, trigger: 'blur' }
+          ]
+        },
         showContent: false,
-        RegPage: false,
-        loginCount: '',
-        loginPsd: '',
-        regCount: '',
-        regPsd: '',
-        logining: true,
-        tipsTxt: '登录成功',
-        showTips: false
+        logining: true
       }
     },
     computed: {
@@ -63,6 +81,16 @@
       }
     },
     methods:{
+      submitForm(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            this.$router.push('shoplist')
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+      },
       loginTap(e){
         if(e.keyCode === 13){  //键盘enter登录
           if(this.loginCount == 'zan' && this.loginPsd == '123456'){
@@ -81,9 +109,10 @@
         }
       },
       loginBtnTap(){
-        this.func.ajaxPost('v5/magic_home_area/home_area_new', {}, res => {
+        this.func.ajaxPost(this.api.login, {user_name: '987',password: '123456'}, res => {
           console.log(res)
         })
+        return false
         if(this.loginCount == 'zan' && this.loginPsd == '123456'){
           console.log(this.api.userLogin)
           this.logining = false
@@ -100,13 +129,6 @@
           this.loginCount = ''
           this.loginPsd = ''
         }
-      },
-      toReg(){
-        this.RegPage = true
-        console.log('asd')
-      },
-      toLogin(){
-        this.RegPage = false
       }
     },
     mounted(){
@@ -127,148 +149,131 @@
     position: fixed;
     top: 0;
     left: 0;
-    .bgp{
-      width: 100%;
-      height: 100%;
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: -2;
-      opacity: 0;
-      transition: .3s;
-    }
-    .showbgp{
-      opacity: 1;
-    }
-    .cover{
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      background-color: rgba(42,160,148,.6);
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: -1;
+    background: radial-gradient(rgba(38,38,38,.8),#1E1E1E);
+    .loginBgp{
+      width: 5%;
+      position: absolute;
+      top: 10%;
+      left: 30px;
     }
     .loginBox{
-      width: 450px;
-      height: 400px;
+      width: 900px;
+      height: 550px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .lineTop{
+        width: 1px;
+        height: 2px;
+        background-color: #fff;
+        transition: .4s linear;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform-origin: left;
+        opacity: 0;
+      }
+      .showlineTop{
+        transform: scaleX(900);
+        opacity: 1;
+      }
+      .lineRight{
+        width: 2px;
+        height: 1px;
+        background-color: #fff;
+        transition: .3s linear .3s;
+        position: absolute;
+        right: 0;
+        top: 0;
+        transform-origin: top;
+        opacity: 0;
+      }
+      .showlineRight{
+        transform: scaleY(130);
+        opacity: 1;
+      }
+      .lineBtm{
+        width: 1px;
+        height: 2px;
+        background-color: #fff;
+        transition: .4s linear;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        transform-origin: right;
+        opacity: 0;
+      }
+      .showlineBtm{
+        transform: scaleX(900);
+        opacity: 1;
+      }
+      .lineLeft{
+        width: 2px;
+        height: 1px;
+        background-color: #fff;
+        transition: .3s linear .3s;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        transform-origin: bottom;
+        opacity: 0;
+      }
+      .showlineLeft{
+        transform: scaleY(130);
+        opacity: 1;
+      }
+      .loginContent{
+        width: 500px;
+        height: 300px;
+        background-color: #484848;
+        opacity: 0;
+        transition: .4s .6s;
+        transform: scale(.98) translateY(10px);
+        padding-top: 22px;
+        box-sizing: border-box;
+        .demo-ruleForm{
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          height: 100%;
+          .el-form-item__content{
+            box-sizing: border-box;
+            padding-right: 50px;
+          }
+        }
+      }
+      .showLoginCon{
+        opacity: 1;
+        background-color: #fff;
+        box-shadow: 0 0 6px rgba(255,255,255,.3);
+        border-radius: 5px;
+        transform: scale(1) translateY(0);
+      }
+    }
+    .contact{
+      width: 150px;
+      height: 100px;
       position: absolute;
-      top: 50%;
-      margin-top: -15%;
-      left: 50%;
-      margin-left: -225px;
-      background-color: #fff;
-      box-shadow: 0 0 20px rgba(0,0,0,.2);
-      border-radius: 5px;
-      margin-bottom: 200px;
+      right: 20px;
+      bottom: 10px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      transform: translateY(-100px) rotateY(90deg) scale(0.9);
-      backface-visibility: hidden;
-      opacity: 0;
-      transition: .7s cubic-bezier(0,.8,.38,1.19);
-      .loginHead{
-        width: 200px;
-        height: 70px;
-        position: absolute;
-        top: -35px;
-        left: 125px;
-        border-radius: 50px;
-        background-color: #4A9EF6;
-        box-shadow: 0 0 20px rgba(0,0,0,.4);
-        font-size: 24px;
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        color: #fff;
-        font-weight: 600;
-        box-sizing: border-box;
-        padding: 0 20px;
-      }
-      .loginTxt{
+      .zanName{
         font-size: 20px;
-        color: #4A9EF6;
-        margin-top: 40px;
-      }
-      .countInp{
-        width: 350px;
-        height: 40px;
-        box-sizing: border-box;
-        padding: 0 5px;
-        border: none;
-        margin: 15px 0;
-        font-size: 17px;
-        outline:none;
-        background:transparent;
-        border:none;
-        outline:medium;
-        border-bottom: 1px solid #A0A0A0;
-        &:focus {
-        }
-      }
-      .loginBtn{
-        width: 350px;
-        height: 60px;
-        background: #E5E5E5;
-        border-radius: 30px;
-        color: #A0A0A0;
-        font-size: 20px;
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 0 20px rgba(74,158,246,.1);
-        margin-top: 30px;
-        cursor: pointer;
-        transition: .6s;
-        -moz-user-select: -moz-none;
-         -khtml-user-select: none;
-         -webkit-user-select: none;
-        &:hover{
-          transform: scale(1.02);
-        }
-      }
-      .canLogin{
-        background-color: #4A9EF6;
         color: #fff;
-        box-shadow: 0 20px 20px -13px rgba(74,158,246,.5);
+        text-shadow: 0 0 5px rgba(0,0,0,1);
       }
-      .toRegeit{
-        font-size: 14px;
-        color: #8D8D8D;
-        margin-top: 20px;
-        cursor: pointer;
-        &:hover{
-          color: #3895E8;
-        }
-      }
-      .toLogin{
-        margin-top: 10px;
-      }
-      .contactPic{
-        width: 300px;
-      }
-      .phoneNumber{
-        margin-top: 10px;
-        font-size: 17px;
-        color: #090B1A;
+      .zanDesc{
+        font-size: 13px;
+        color: #fff;
+        margin-top: 5px;
+        text-shadow: 0 0 5px rgba(0,0,0,1);
       }
     }
-    .showloginBox{
-      opacity: 1;
-      transform: translateY(0) rotateY(0) scale(1);
-    }
-    .hideLogin{
-      opacity: 0;
-      transform: translateY(0) rotateY(0) scale(0.5);
-    }
-    .showregPage{
-      transform: rotateY(180deg);
-      transition: 2s cubic-bezier(0,.8,.38,1.19);
-    }
+    
   }
 	
 </style>

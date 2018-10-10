@@ -5,7 +5,9 @@ module.exports = {
    
 
     // user
-    login: baseUrl + '/qrcode/wificode',
+    login: baseUrl + '/user/login',
+    wifi: baseUrl + '/qrcode/wificode',
+
 	
 	
 	
