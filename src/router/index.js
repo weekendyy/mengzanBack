@@ -3,12 +3,12 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-const login = r => require.ensure([], () => r(require('@/pages/login')), 'login');
+const login = r => require.ensure([], () => r(require('@/pages/loginCheck/login')), 'login');
 const manage = r => require.ensure([], () => r(require('@/pages/manage')), 'manage');
 const home = r => require.ensure([], () => r(require('@/pages/home')), 'home');
-const shoplist = r => require.ensure([], () => r(require('@/pages/shoplist')), 'shoplist');
-const addShop = r => require.ensure([], () => r(require('@/pages/addShop')), 'addShop');
-const zanAuth = r => require.ensure([], () => r(require('@/pages/zanAuth')), 'zanAuth');
+const shoplist = r => require.ensure([], () => r(require('@/pages/loginCheck/shoplist')), 'shoplist');
+const addShop = r => require.ensure([], () => r(require('@/pages/loginCheck/addShop')), 'addShop');
+const zanAuth = r => require.ensure([], () => r(require('@/pages/loginCheck/zanAuth')), 'zanAuth');
 
 const routes = [
 	{

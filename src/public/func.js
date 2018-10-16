@@ -16,7 +16,13 @@ export default {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         })
-            .then(cb)
+            .then((res)=>{
+              if(res.status === 200){
+                cb(res.data)
+              }else{
+                console.log('访问出错了')
+              }
+            })
             .catch(err => {
                 console.log(err);
             })
